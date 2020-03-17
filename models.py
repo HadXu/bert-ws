@@ -4,7 +4,7 @@ import torch
 
 class ProteinNet(nn.Module):
     def __init__(self):
-        super().__init__()
+        super(ProteinNet, self).__init__()
 
     def forward(self, input):
         return input
@@ -17,4 +17,3 @@ if __name__ == '__main__':
     y = net(x)
 
     print(y.size())
-
