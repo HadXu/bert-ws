@@ -1,8 +1,20 @@
 from load import ProteinDataSet, DataLoader
 from models import ProteinNet
 
+import argparse
+import numpy as np
+import random
+import torch
 from torch.nn import CrossEntropyLoss
 from torch.optim import Adam
+
+
+def setup_seed(seed):
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+    np.random.seed(seed)
+    random.seed(seed)
+    torch.backends.cudnn.deterministic = True
 
 
 def train():
@@ -40,3 +52,19 @@ def train():
             val_acc.append(acc)
 
     print("train done......")
+
+
+if __name__ == '__main__':
+    setup_seed(4115)
+    parser = argparse.ArgumentParser(description='protein')
+    parser.add_argument("-e", "--epochs", help="training epochs", default=22, type=int)
+    parser.add_argument('-lr', '--lr', help='learning rate', default=1e-3, type=float)
+    parser.add_argument("-b", "--batch_size", help="batch_size", default=256, type=int)
+    args = parser.parse_args()
+
+    cfg = {}
+    cfg['epoch'] = args.epochs
+    cfg['lr'] = args.lr
+    cfg['batch_size'] = args.batch_size
+
+
