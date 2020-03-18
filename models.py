@@ -18,9 +18,11 @@ def log_sum_exp(vec):
 class ProteinNet(nn.Module):
     def __init__(self):
         super(ProteinNet, self).__init__()
+        self.cnf = CNF()
 
     def forward(self, input):
-        return input
+        out = self.cnf(input)
+        return out
 
 
 class CNF(nn.Module):
